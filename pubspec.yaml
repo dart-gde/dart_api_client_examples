@@ -1,0 +1,10 @@
+name:  dart_api_generator_tests
+description:  Various tests and demos for automatically generated API client libraries
+version: 0.0.1
+author: Gerwin Sturm <scarygami@gmail.com>
+homepage: https://github.com/dart-gde/discovery_api_dart_client_generator
+
+dependencies:
+  browser: any
+  plus_v1_api_client:
+    git: git://github.com/Scarygami/dart_plus_v1_api_client.git
