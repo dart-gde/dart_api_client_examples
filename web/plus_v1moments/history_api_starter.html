@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google+ History API Starter - Dart Version</title>
+  <link rel="stylesheet" href="history_api_starter.css"/>
+</head>
+<body>
+  <header>
+    <h1>Google+ History API Starter - Dart Version</h1>
+    Source and information available at <a href="https://developers.google.com/+/history/client-side-flow" target="_blank">developers.google.com/+/history/client-side-flow</a>
+  </header>
+  <ol>
+    <li>
+      <h2>Sign in to Google+</h2>
+  
+      <div id="panel-sign-in">
+        <button id="sign-in">Sign in</button>
+      </div>
+      <div id="panel-sign-out">
+        <button id="sign-out">Sign out</button>
+      </div>
+    </li>
+    <li>
+      <h2>Write moments to Google</h2>
+  
+      <div id="panel-communicate-moments">
+        <div id="write-sample-moments">
+          <h3>Make REST API calls</h3>
+          <button id="get-me">Get Me</button>
+          <h3>Write sample moments</h3>
+          <div id="sample-moment-buttons"></div>
+        </div>
+        <div id="write-custom-moment">
+          <h3>Write a custom moment</h3>
+          <label>Specify JSON: <textarea id="custom-json">{
+  "type":"http://schemas.google.com/AddActivity",
+  "target":{
+    "url":"https://developers.google.com/+/plugins/snippet/examples/thing"
+  }
+}
+          </textarea></label>
+          <button id="custom-json-submit">Write it</button>
+        </div>
+      </div>
+    </li>
+    <li>
+      <h2>See Results or <a href="https://plus.google.com/history" target="_blank"> see them on Google+</a></h2>
+      <button id="clear-debug">Clear debug</button>
+      <pre id="debug-panel"></pre>
+    </li>
+  </ol>
+
+  <script type="application/dart" src="history_api_starter.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+</body>
+</html>
