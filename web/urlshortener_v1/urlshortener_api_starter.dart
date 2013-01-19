@@ -16,6 +16,10 @@ void historyLog(String message) {
   query("#history-panel").text = "$message\n${query("#history-panel").text}";
 }
 
+void analyticsLog(String message) {
+  query("#analytics-panel").text = "$message\n${query("#analytics-panel").text}";
+}
+
 String formatJson(String json) {
   json = json.replaceAll("\":", "\": ");
   json = json.replaceAll(",\"", ",\n\"");
@@ -85,20 +89,20 @@ void main() {
   query("#analytics-button").on.click.add((event) {
     urlshortener.url.list(projection: "FULL")
     ..handleException((e) {
-      debugLog("Error list: $e");
+      debugLog("Error analytics: $e");
     })
     ..then((urlshortenerlib.UrlHistory responseUrlHistory) {
-      historyLog("list successfully:\n${formatJson(responseUrlHistory.toString())}");
+      analyticsLog("analytics successfully:\n${formatJson(responseUrlHistory.toString())}");
     });
   });
 
   query("#history-button").on.click.add((event) {
     urlshortener.url.list()
     ..handleException((e) {
-      debugLog("Error list: $e");
+      debugLog("Error history: $e");
     })
     ..then((urlshortenerlib.UrlHistory responseUrlHistory) {
-      historyLog("list successfully:\n${formatJson(responseUrlHistory.toString())}");
+      historyLog("list history:\n${formatJson(responseUrlHistory.toString())}");
     });
   });
 
