@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Urlshortener API Starter</title>
+    <link rel="stylesheet" href="urlshortener_api_starter.css">
+  </head>
+  <body>
+    <header>
+      <h1>Urlshortener API Starter - Dart Version</h1>
+      Source and information available at <a href="https://developers.google.com/url-shortener/v1/getting_started" target="_blank">url-shortener v1 - getting_started</a>
+    </header>
+    <ol>
+      <li>
+        <h2>Sign in to Google</h2>
+
+        <div id="panel-sign-in">
+          <button id="sign-in">Sign in</button>
+        </div>
+        <div id="panel-sign-out">
+          <button id="sign-out">Sign out</button>
+        </div>
+      </li>
+      <li>
+        <h2>Shorten a long URL</h2>
+        <div id="">
+          <button id="shorten-button">Shorten</button>
+          <input id="shorten-input" type="text" value="http://www.google.com"></input>
+          <a id="shorten-link" href="" target="_blank"></a>
+        </div>
+      </li>
+
+      <li>
+        <h2>Expand a short URL</h2>
+        <div id="">
+          <button id="expand-button">Expand</button>
+          <input id="expand-input"></input>
+          <a id="expand-link" href="" target="_blank"></a>
+        </div>
+      </li>
+
+      <li>
+        <h2>Look up a short URL's analytics</h2>
+        <div id="">
+          <button id="analytics-button">Analytics</button>
+          <input id="analytics-input"></input>
+          <pre id="analytics-panel"></pre>
+        </div>
+      </li>
+
+      <li>
+        <h2>Look up a user's history</h2>
+        <div id="">
+          <button id="history-button">History</button>
+          <pre id="history-panel"></pre>
+        </div>
+      </li>
+
+      <li>
+        <button id="clear-debug">Clear debug</button>
+        <pre id="debug-panel"></pre>
+      </li>
+    </ol>
+    <script type="application/dart" src="urlshortener_api_starter.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>
