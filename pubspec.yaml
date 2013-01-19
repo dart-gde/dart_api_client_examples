@@ -12,3 +12,5 @@ dependencies:
     git: git://github.com/Scarygami/dart_plus_v1moments_api_client.git
   drive_v2_api_client:
     git: git://github.com/Scarygami/dart_drive_v2_api_client.git
+  urlshortener_v1_api_client:
+    git: git://github.com/Scarygami/dart_urlshortener_v1_api_client.git
