@@ -30,8 +30,10 @@ String formatJson(String json) {
 void toggleInterface(token) {
   if (token == null) {
     debugLog("Logged out.");
+    urlshortener.makeAuthRequests = false;
   } else {
     debugLog("Auth Success ${token.toString()}");
+    urlshortener.makeAuthRequests = true;
   }
   query("#panel-sign-in").style.display = (token == null) ? "block" : "none";
   query("#panel-sign-out").style.display = (token == null) ? "none" : "block";
