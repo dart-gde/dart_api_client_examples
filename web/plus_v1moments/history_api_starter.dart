@@ -1,5 +1,5 @@
 import "dart:html";
-import "dart:json";
+import "dart:json" as JSON;
 import "package:plus_v1moments_api_client/plus_v1moments_api_client.dart" as historylib;
 import "package:plus_v1_api_client/plus_v1_api_client.dart" as pluslib;
 import "package:google_oauth2_client/google_oauth2_client.dart";
@@ -123,9 +123,10 @@ void createButtons() {
 
 void writeMoment(String momentString) {
   var json;
+  
   try {
     json = JSON.parse(momentString);
-  } on JSONParseException {
+  } on FormatException {
     debugLog("Invalid JSON Input");
     return;
   }
@@ -133,12 +134,12 @@ void writeMoment(String momentString) {
   var moment = new historylib.Moment.fromJson(json);
   history.makeAuthRequests = true;
   history.moments.insert(moment, "me", "vault", debug: true)
-    ..handleException((e) {
+    .then((historylib.Moment response) {
+      debugLog("Moment written successfully:\n${formatJson(response.toString())}");
+    })
+    .catchError((e) {
       debugLog("Error writing moment: $e");
       return true;
-    })
-    ..then((historylib.Moment response) {
-      debugLog("Moment written successfully:\n${formatJson(response.toString())}");
     });
 }
 
@@ -150,19 +151,19 @@ void main() {
   plus = new pluslib.Plus(auth);
   history = new historylib.Plus(auth);
 
-  query("#sign-in").on.click.add((e) {
+  query("#sign-in").onClick.listen((e) {
     debugLog("Attempting to log you in.");
     auth.login();
   });
   
-  query("#sign-out").on.click.add((e) {
+  query("#sign-out").onClick.listen((e) {
     debugLog("Signing you out.");
     auth.logout();
     toggleInterface(null);
   });
   
-  query("#clear-debug").on.click.add((e) => query("#debug-panel").text = "");
-  query("#get-me").on.click.add((e) {
+  query("#clear-debug").onClick.listen((e) => query("#debug-panel").text = "");
+  query("#get-me").onClick.listen((e) {
     debugLog("Attempting to get your profile");
     plus.makeAuthRequests = true;
     plus.people.get("me", optParams: {"fields": "displayName,id,image,url"})
@@ -172,8 +173,8 @@ void main() {
   });
   
   queryAll(".write-sample").forEach((button) {
-    button.on.click.add((e) => writeMoment(button.dataAttributes["moment"]));
+    button.onClick.listen((e) => writeMoment(button.dataAttributes["moment"]));
   });
   
-  query("#custom-json-submit").on.click.add((e) => writeMoment(query("#custom-json").text));
+  query("#custom-json-submit").onClick.listen((e) => writeMoment(query("#custom-json").text));
 }

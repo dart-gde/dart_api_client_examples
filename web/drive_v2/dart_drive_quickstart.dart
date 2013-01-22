@@ -17,7 +17,7 @@ void main() {
     var file = evt.target.files[0];
     var reader = new FileReader();
     reader.readAsBinaryString(file);
-    reader.on.load.add((Event e) {
+    reader.onLoad.listen((Event e) {
       var contentType = file.type;
       if (contentType.isEmpty) {
         contentType = 'application/octet-stream';
@@ -26,18 +26,19 @@ void main() {
       var newFile = new drivelib.File.fromJson({"title": file.name, "mimeType": contentType});
       output.appendHtml("Uploading file...<br>");
       drive.files.insert(newFile, content: base64Data, contentType: contentType)
-        ..handleException((e) {
+        .then((data) {
+          output.appendHtml("Uploaded file with ID <a href=\"${data.alternateLink}\" target=\"_blank\">${data.id}</a><br>");
+        })
+        .catchError((e) {
           output.appendHtml("$e<br>");
           return true;
-        })
-        ..then((data) {
-          output.appendHtml("Uploaded file with ID <a href=\"${data.alternateLink}\" target=\"_blank\">${data.id}</a><br>");
         });
+
     });
   }
   
-  filePicker.on.change.add(uploadFile);
-  loginButton.on.click.add((Event e) {
+  filePicker.onChange.listen(uploadFile);
+  loginButton.onClick.listen((Event e) {
     auth.login().then((token) {
       output.appendHtml("Got Token ${token.type} ${token.data}<br>");
       filePicker.style.display = "block";
