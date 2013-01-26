@@ -1,4 +1,4 @@
-# dart_api_generator_tests
+# dart_api_client_examples
 
 ### Description
 
