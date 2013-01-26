@@ -6,11 +6,5 @@ homepage: https://github.com/dart-gde/discovery_api_dart_client_generator
 
 dependencies:
   browser: any
-  plus_v1_api:
-    git: git://github.com/Scarygami/dart_plus_v1_api_client.git
-  plus_v1moments_api:
-    git: git://github.com/Scarygami/dart_plus_v1moments_api_client.git
-  drive_v2_api:
-    git: git://github.com/Scarygami/dart_drive_v2_api_client.git
-  urlshortener_v1_api:
-    git: git://github.com/Scarygami/dart_urlshortener_v1_api_client.git
+  api_client:
+    git: git://github.com/Scarygami/dart_api_client.git

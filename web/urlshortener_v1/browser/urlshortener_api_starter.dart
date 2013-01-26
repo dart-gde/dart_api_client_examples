@@ -1,12 +1,12 @@
 import "dart:html";
 import "dart:json" as JSON;
-import "package:urlshortener_v1_api/urlshortener_v1_api_browser.dart" as urlshortenerlib;
+import "package:api_client/urlshortener_v1_api_browser.dart" as urlshortenerclient;
 import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 var auth, urlshortener;
 
 final CLIENT_ID = "796343192238.apps.googleusercontent.com";
-final SCOPES = [urlshortenerlib.Urlshortener.URLSHORTENER_SCOPE];
+final SCOPES = [urlshortenerclient.Urlshortener.URLSHORTENER_SCOPE];
 
 void debugLog(String message) {
   query("#debug-panel").text = "$message\n${query("#debug-panel").text}";
@@ -43,7 +43,7 @@ void main() {
 
   auth = new OAuth2(CLIENT_ID, SCOPES, tokenLoaded: toggleInterface);
 
-  urlshortener = new urlshortenerlib.Urlshortener(auth);
+  urlshortener = new urlshortenerclient.Urlshortener(auth);
 
   query("#sign-in").onClick.listen((e) {
     debugLog("Attempting to log you in.");
@@ -58,9 +58,9 @@ void main() {
 
   query("#shorten-button").onClick.listen((event) {
     var requestData = {"longUrl": (query("#shorten-input") as InputElement).value};
-    var url = new urlshortenerlib.Url.fromJson(requestData);
+    var url = new urlshortenerclient.Url.fromJson(requestData);
     urlshortener.url.insert(url)
-      .then((urlshortenerlib.Url responseUrl) {
+      .then((urlshortenerclient.Url responseUrl) {
         debugLog("insert url successfully:\n${formatJson(responseUrl.toString())}");
         (query('#shorten-link') as AnchorElement)
         ..href = responseUrl.id
@@ -77,7 +77,7 @@ void main() {
   query("#expand-button").onClick.listen((event) {
     var shortUrl = (query("#shorten-link") as AnchorElement).href;
     urlshortener.url.get(shortUrl)
-      .then((urlshortenerlib.Url responseUrl) {
+      .then((urlshortenerclient.Url responseUrl) {
         debugLog("get url successfully:\n${formatJson(responseUrl.toString())}");
         (query('#expand-link') as AnchorElement)
         ..href = responseUrl.longUrl
@@ -90,7 +90,7 @@ void main() {
 
   query("#analytics-button").onClick.listen((event) {
     urlshortener.url.list(projection: "FULL")
-      .then((urlshortenerlib.UrlHistory responseUrlHistory) {
+      .then((urlshortenerclient.UrlHistory responseUrlHistory) {
         analyticsLog("analytics successfully:\n${formatJson(responseUrlHistory.toString())}");
       })
       .catchError((e) {
@@ -100,12 +100,12 @@ void main() {
 
   query("#history-button").onClick.listen((event) {
     urlshortener.url.list()
-      .then((urlshortenerlib.UrlHistory responseUrlHistory) {
+      .then((urlshortenerclient.UrlHistory responseUrlHistory) {
         historyLog("list history:\n${formatJson(responseUrlHistory.toString())}");
       })
       .catchError((e) {
         debugLog("Error history: $e");
-      });    
+      });
   });
 
   query("#clear-debug").onClick.listen((e) => query("#debug-panel").text = "");
