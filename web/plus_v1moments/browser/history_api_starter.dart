@@ -1,8 +1,8 @@
 import "dart:html";
 import "dart:json" as JSON;
-import "package:plus_v1moments_api_client/plus_v1moments_api_client.dart" as historylib;
-import "package:plus_v1_api_client/plus_v1_api_client.dart" as pluslib;
-import "package:google_oauth2_client/google_oauth2_client.dart";
+import "package:plus_v1moments_api/plus_v1moments_api_browser.dart" as historylib;
+import "package:plus_v1_api/plus_v1_api_browser.dart" as pluslib;
+import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 var auth, plus, history;
 

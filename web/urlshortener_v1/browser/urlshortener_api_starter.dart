@@ -1,7 +1,7 @@
 import "dart:html";
 import "dart:json" as JSON;
-import "package:urlshortener_v1_api_client/urlshortener_v1_api_client.dart" as urlshortenerlib;
-import "package:google_oauth2_client/google_oauth2_client.dart";
+import "package:urlshortener_v1_api/urlshortener_v1_api_browser.dart" as urlshortenerlib;
+import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 var auth, urlshortener;
 
