@@ -1,13 +1,13 @@
 import "dart:html";
 import "dart:json" as JSON;
-import "package:api_client/plus_v1moments_api_browser.dart" as historyclient;
-import "package:api_client/plus_v1_api_browser.dart" as plusclient;
+import "package:plus_v1moments_api/plus_v1moments_api_browser.dart" as historylib;
+import "package:plus_v1_api/plus_v1_api_browser.dart" as pluslib;
 import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 var auth, plus, history;
 
 final CLIENT_ID = "796343192238.apps.googleusercontent.com";
-final SCOPES = [plusclient.Plus.PLUS_ME_SCOPE, historyclient.Plus.PLUS_MOMENTS_WRITE_SCOPE];
+final SCOPES = [pluslib.Plus.PLUS_ME_SCOPE, historylib.Plus.PLUS_MOMENTS_WRITE_SCOPE];
 
 final Map sampleActivities = 
   {
@@ -131,10 +131,10 @@ void writeMoment(String momentString) {
     return;
   }
   debugLog("Trying to write Moment:\n${formatJson(momentString)}");
-  var moment = new historyclient.Moment.fromJson(json);
+  var moment = new historylib.Moment.fromJson(json);
   history.makeAuthRequests = true;
   history.moments.insert(moment, "me", "vault", debug: true)
-    .then((historyclient.Moment response) {
+    .then((historylib.Moment response) {
       debugLog("Moment written successfully:\n${formatJson(response.toString())}");
     })
     .catchError((e) {
@@ -148,8 +148,8 @@ void main() {
   
   auth = new OAuth2(CLIENT_ID, SCOPES, tokenLoaded: toggleInterface);
   
-  plus = new plusclient.Plus(auth);
-  history = new historyclient.Plus(auth);
+  plus = new pluslib.Plus(auth);
+  history = new historylib.Plus(auth);
 
   query("#sign-in").onClick.listen((e) {
     debugLog("Attempting to log you in.");
@@ -167,7 +167,7 @@ void main() {
     debugLog("Attempting to get your profile");
     plus.makeAuthRequests = true;
     plus.people.get("me", optParams: {"fields": "displayName,id,image,url"})
-      .then((plusclient.Person p) {
+      .then((pluslib.Person p) {
         debugLog("Got your profile:\n${formatJson(p.toString())}");
       });
   });

@@ -1,13 +1,13 @@
 import "dart:html";
-import "package:api_client/drive_v2_api_browser.dart" as driveclient;
+import "package:drive_v2_api/drive_v2_api_browser.dart" as drivelib;
 import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 final CLIENT_ID = "796343192238.apps.googleusercontent.com";
-final SCOPES = [driveclient.Drive.DRIVE_FILE_SCOPE];
+final SCOPES = [drivelib.Drive.DRIVE_FILE_SCOPE];
 
 void main() {
   var auth = new OAuth2(CLIENT_ID, SCOPES);
-  var drive = new driveclient.Drive(auth);
+  var drive = new drivelib.Drive(auth);
   drive.makeAuthRequests = true;
   var filePicker = query("#filePicker");
   var loginButton = query("#login");
@@ -23,7 +23,7 @@ void main() {
         contentType = 'application/octet-stream';
       }
       var base64Data = window.btoa(reader.result);
-      var newFile = new driveclient.File.fromJson({"title": file.name, "mimeType": contentType});
+      var newFile = new drivelib.File.fromJson({"title": file.name, "mimeType": contentType});
       output.appendHtml("Uploading file...<br>");
       drive.files.insert(newFile, content: base64Data, contentType: contentType)
         .then((data) {
