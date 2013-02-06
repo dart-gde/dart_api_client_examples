@@ -2,7 +2,7 @@ import "dart:io";
 import "dart:async";
 import "dart:json" as JSON;
 import "package:google_oauth2_client/google_oauth2_console.dart";
-import "package:drive_v2_api/drive_v2_api_console.dart" as drivelib;
+import "package:google_drive_v2_api/drive_v2_api_console.dart" as drivelib;
 import "package:http/http.dart" as http;
 
 createPublicFolder(folderName, drivelib.Drive drive) {

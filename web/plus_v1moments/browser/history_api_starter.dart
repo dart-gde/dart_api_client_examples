@@ -1,7 +1,7 @@
 import "dart:html";
 import "dart:json" as JSON;
-import "package:plus_v1moments_api/plus_v1moments_api_browser.dart" as historylib;
-import "package:plus_v1_api/plus_v1_api_browser.dart" as pluslib;
+import "package:google_plus_v1moments_api/plus_v1moments_api_browser.dart" as historylib;
+import "package:google_plus_v1_api/plus_v1_api_browser.dart" as pluslib;
 import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 var auth, plus, history;
@@ -146,7 +146,7 @@ void writeMoment(String momentString) {
 void main() {
   createButtons();
   
-  auth = new OAuth2(CLIENT_ID, SCOPES, tokenLoaded: toggleInterface);
+  auth = new GoogleOAuth2(CLIENT_ID, SCOPES, tokenLoaded: toggleInterface);
   
   plus = new pluslib.Plus(auth);
   history = new historylib.Plus(auth);

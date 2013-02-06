@@ -1,12 +1,12 @@
 import "dart:html";
-import "package:drive_v2_api/drive_v2_api_browser.dart" as drivelib;
+import "package:google_drive_v2_api/drive_v2_api_browser.dart" as drivelib;
 import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 final CLIENT_ID = "796343192238.apps.googleusercontent.com";
 final SCOPES = [drivelib.Drive.DRIVE_FILE_SCOPE];
 
 void main() {
-  var auth = new OAuth2(CLIENT_ID, SCOPES);
+  var auth = new GoogleOAuth2(CLIENT_ID, SCOPES);
   var drive = new drivelib.Drive(auth);
   drive.makeAuthRequests = true;
   var filePicker = query("#filePicker");

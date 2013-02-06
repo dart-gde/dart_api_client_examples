@@ -1,6 +1,6 @@
 import "dart:html";
 import "dart:json" as JSON;
-import "package:urlshortener_v1_api/urlshortener_v1_api_browser.dart" as urlshortenerlib;
+import "package:google_urlshortener_v1_api/urlshortener_v1_api_browser.dart" as urlshortenerlib;
 import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 var auth, urlshortener;
@@ -41,7 +41,7 @@ void toggleInterface(token) {
 
 void main() {
 
-  auth = new OAuth2(CLIENT_ID, SCOPES, tokenLoaded: toggleInterface);
+  auth = new GoogleOAuth2(CLIENT_ID, SCOPES, tokenLoaded: toggleInterface);
 
   urlshortener = new urlshortenerlib.Urlshortener(auth);
 
