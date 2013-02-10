@@ -1,6 +1,8 @@
 // Run as 
 // dart web/drive_v2/console/files/list_example.dart
 
+// See https://developers.google.com/drive/search-parameters for more information on queries.
+
 import "dart:io";
 import "dart:async";
 import "dart:json" as JSON;
@@ -31,7 +33,7 @@ void run(Map client_secrets) {
   var drive = new drivelib.Drive(auth);
   drive.makeAuthRequests = true;
   
-  listFiles("dart", drive, onGetFileList);
+  listFiles("title = 'Dart'", drive, onGetFileList);
 }
 
 void main() {

@@ -6,11 +6,6 @@ Various tests and demos for automatically generated API client libraries.
 
 API Client Generator: https://github.com/dart-gde/discovery_api_dart_client_generator
 
-### To get started:
-
-* Complete step 1 of https://developers.google.com/drive/quickstart-python.
-* Download credentials.json from [Api Console](https://code.google.com/apis/console).
-
 ### Licenses
 
 ```
