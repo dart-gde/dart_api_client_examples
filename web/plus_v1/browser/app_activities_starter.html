@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Google+ History API Starter - Dart Version</title>
-  <link rel="stylesheet" href="history_api_starter.css"/>
+  <title>Google+ App Activities Starter - Dart Version</title>
+  <link rel="stylesheet" href="app_activities_starter.css"/>
 </head>
 <body>
   <header>
     <h1>Google+ History API Starter - Dart Version</h1>
-    Source and information available at <a href="https://developers.google.com/+/history/client-side-flow" target="_blank">developers.google.com/+/history/client-side-flow</a>
+    Documentation available at <a href="https://developers.google.com/+/api/latest/moments" target="_blank">developers.google.com/+/api/latest/moments</a>
   </header>
   <ol>
     <li>
       <h2>Sign in to Google+</h2>
   
       <div id="panel-sign-in">
-        <button id="sign-in">Sign in</button>
+        <span id="sign-in" class="button gplus"><span class="icon">&nbsp;</span><span class="label">Sign in</span></span>
       </div>
       <div id="panel-sign-out">
         <button id="sign-out">Sign out</button>
@@ -44,13 +44,13 @@
       </div>
     </li>
     <li>
-      <h2>See Results or <a href="https://plus.google.com/history" target="_blank"> see them on Google+</a></h2>
+      <h2>See Results or <a href="https://plus.google.com/apps/activities/from/ed08cfbe3b7" target="_blank">see them on Google+</a></h2>
       <button id="clear-debug">Clear debug</button>
       <pre id="debug-panel"></pre>
     </li>
   </ol>
 
-  <script type="application/dart" src="history_api_starter.dart"></script>
+  <script type="application/dart" src="app_activities_starter.dart"></script>
   <script src="packages/browser/dart.js"></script>
 </body>
 </html>

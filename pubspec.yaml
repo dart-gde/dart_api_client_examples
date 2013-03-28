@@ -9,6 +9,5 @@ homepage: https://github.com/dart-gde/discovery_api_dart_client_generator
 dependencies:
   browser: any
   google_plus_v1_api: any
-  google_plus_v1moments_api: any
   google_drive_v2_api: any
   google_urlshortener_v1_api: any
