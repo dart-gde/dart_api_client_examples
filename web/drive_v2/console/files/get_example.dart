@@ -8,7 +8,6 @@ import "package:google_oauth2_client/google_oauth2_console.dart";
 import "package:google_drive_v2_api/drive_v2_api_console.dart" as drivelib;
 import "package:http/http.dart" as http;
 
-
 void getFile(String fileId, drivelib.Drive drive, Function callback) {
   var request = drive.files.get(fileId).then((drivelib.File rtrvdFile) {
     Function.apply(callback,[rtrvdFile]);

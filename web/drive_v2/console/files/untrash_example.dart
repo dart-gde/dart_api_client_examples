@@ -8,7 +8,6 @@ import "package:google_oauth2_client/google_oauth2_console.dart";
 import "package:google_drive_v2_api/drive_v2_api_console.dart" as drivelib;
 import "package:http/http.dart" as http;
 
-
 void untrashFile(String fileId, drivelib.Drive drive, Function callback) {
   
   drive.files.untrash(fileId).then((drivelib.File untrashedFile){
@@ -48,7 +47,3 @@ void main() {
   });
  
 }
-
-
-
-

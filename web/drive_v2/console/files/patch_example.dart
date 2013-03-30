@@ -17,7 +17,6 @@ void patchFile(String fileId, Map newMetaData, drivelib.Drive drive, Function ca
     Function.apply(callback,[patchedFile]);
   });
   
-    
 }
 
 void onPatchFile(drivelib.File file) {
@@ -54,7 +53,3 @@ void main() {
   });
  
 }
-
-
-
-

@@ -1,4 +1,3 @@
-// Courtesy:  https://github.com/dart-gde/dart_api_client_examples
 // Run as 
 // dart web/drive_v2/console/files/insert_folder_example.dart
 
