@@ -1,0 +1,9 @@
+name: browser_drive
+description: A sample application
+dependencies:
+  browser: any
+  google_drive_v2_api: any
+
+#dependencies:
+#  js: any
+#  unittest: any
