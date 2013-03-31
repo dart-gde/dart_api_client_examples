@@ -10,30 +10,19 @@ import "package:google_oauth2_client/google_oauth2_console.dart";
 import "package:google_drive_v2_api/drive_v2_api_console.dart" as drivelib;
 import "package:http/http.dart" as http;
 
-
-void listFiles(String query, drivelib.Drive drive, Function callback) {
-  
-  drive.files.list(maxResults:10,q:query).then((drivelib.FileList fileList){
-    Function.apply(callback,[fileList]);
-  });
-  
-}
-
-void onGetFileList(drivelib.FileList fileList) {
-  print(fileList);
-}
-
 void run(Map client_secrets) {
   String identifier = client_secrets["client_id"];
   String secret = client_secrets["client_secret"];
-  
   List scopes = [drivelib.Drive.DRIVE_FILE_SCOPE, drivelib.Drive.DRIVE_SCOPE];
-  
   final auth = new OAuth2Console(identifier: identifier, secret: secret, scopes: scopes);
   var drive = new drivelib.Drive(auth);
   drive.makeAuthRequests = true;
-  
-  listFiles("title = 'Dart'", drive, onGetFileList);
+  String query = "mimeType = 'application/vnd.google-apps.document'";
+  drive.files.list(maxResults:10,q:query).then((drivelib.FileList fileList){
+    fileList.items.forEach((drivelib.File file){
+      print("${file.title}: ${file.id}");
+    });
+  });
 }
 
 void main() {
