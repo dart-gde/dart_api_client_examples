@@ -58,9 +58,5 @@ void callDart2js(String path) {
     if (result.exitCode != 0) {
       exit(result.exitCode);
     }
-  });
-  
-  
+  }); 
 }
-
-
