@@ -12,10 +12,6 @@ function onGetAuthToken(auth_token) {
 
 function startOAuth() {
 	chrome.experimental.identity.getAuthToken({ 'interactive': true }, onGetAuthToken);
-		
-	//onGetAuthToken("abcdef12345");
-	
-	
 }
 
 function init() {

@@ -16,4 +16,3 @@ Before running this example, make sure you:
 
 
 See [mimeTypes](http://stackoverflow.com/questions/11412497/what-are-the-google-apps-mime-types-in-google-docs-and-google-drive) for a list of Google Drive mimeTypes.
-

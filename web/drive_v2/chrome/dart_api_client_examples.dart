@@ -74,5 +74,3 @@ Future<drivelib.Drive> handleOAuth() {
   
   return completer.future;
 }
-
-
