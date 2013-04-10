@@ -1,4 +1,4 @@
-Examples using http://pub.dartlang.org/packages/google_drive_v2_api from Dart console to interface the Drive SDK.
+Examples using http://pub.dartlang.org/packages/google_drive_v2_api from Dart to interface the Drive SDK.
 
 Before running these examples, make sure you:
 * Complete step 1 of https://developers.google.com/drive/quickstart-python.  Setup a Client ID for web applications.  Set http://localhost:8080 as the JavaScript origin.

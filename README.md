@@ -9,7 +9,7 @@ API Client Generator: https://github.com/dart-gde/discovery_api_dart_client_gene
 ### Licenses
 
 ```
-Copyright (c) 2013 Gerwin Sturm & Adam Singer
+Copyright (c) 2013 Gerwin Sturm, Adam Singer & Damon Douglas
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
