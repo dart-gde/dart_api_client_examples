@@ -1,4 +1,4 @@
-// Run as 
+// Run as
 // dart web/drive_v2/console/files/patch_example.dart
 
 
@@ -6,11 +6,12 @@ import "dart:io";
 import "dart:json" as JSON;
 import "package:google_oauth2_client/google_oauth2_console.dart";
 import "package:google_drive_v2_api/drive_v2_api_console.dart" as drivelib;
+import "package:google_drive_v2_api/drive_v2_api_client.dart" as client;
 
 void run(Map client_secrets) {
   String identifier = client_secrets["client_id"];
   String secret = client_secrets["client_secret"];
-  
+
   List scopes = [drivelib.Drive.DRIVE_FILE_SCOPE, drivelib.Drive.DRIVE_SCOPE];
   final auth = new OAuth2Console(identifier: identifier, secret: secret, scopes: scopes);
   var drive = new drivelib.Drive(auth);
@@ -18,8 +19,8 @@ void run(Map client_secrets) {
   String fileId = "1z13pdHxgJAxZfTcA3zTuegwE5SYpfH3VWaQLAOl-Rc4";
   String newTitle = "New Title ${new DateTime.now()}";
   Map newMetaData = {"title":newTitle};
-  drivelib.File file = new drivelib.File.fromJson(newMetaData);
-  drive.files.patch(file,fileId).then((drivelib.File patchedFile){
+  client.File file = new client.File.fromJson(newMetaData);
+  drive.files.patch(file,fileId).then((client.File patchedFile){
     print("Changed Title To: ${patchedFile.title}");
   });
 }
@@ -36,5 +37,5 @@ void main() {
       });
     }
   });
- 
+
 }
