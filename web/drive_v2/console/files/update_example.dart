@@ -5,7 +5,7 @@ import "dart:io";
 import "dart:json" as JSON;
 import "package:google_oauth2_client/google_oauth2_console.dart";
 import "package:google_drive_v2_api/drive_v2_api_console.dart" as drivelib;
-import "dart:crypto";
+import "package:crypto/crypto.dart";
 
 void run(Map client_secrets) {
   String identifier = client_secrets["client_id"];
