@@ -1,4 +1,5 @@
 import "dart:html";
+import "dart:typed_data";
 import "package:google_drive_v2_api/drive_v2_api_browser.dart" as drivelib;
 import "package:google_drive_v2_api/drive_v2_api_client.dart" as client;
 import "package:google_oauth2_client/google_oauth2_browser.dart";
@@ -15,15 +16,18 @@ void main() {
   var output = query("#text");
 
   void uploadFile(Event evt) {
-    var file = evt.target.files[0];
+    var file = (evt.target as InputElement).files[0];
     var reader = new FileReader();
-    reader.readAsBinaryString(file);
+    reader.readAsArrayBuffer(file);
     reader.onLoad.listen((Event e) {
       var contentType = file.type;
       if (contentType.isEmpty) {
         contentType = 'application/octet-stream';
       }
-      var base64Data = window.btoa(reader.result);
+
+      var uintlist = new Uint8List.fromList(reader.result);
+      var charcodes = new String.fromCharCodes(uintlist);
+      var base64Data = window.btoa(charcodes);
       var newFile = new client.File.fromJson({"title": file.name, "mimeType": contentType});
       output.appendHtml("Uploading file...<br>");
       drive.files.insert(newFile, content: base64Data, contentType: contentType)
