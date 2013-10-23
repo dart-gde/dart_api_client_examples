@@ -1,13 +1,15 @@
-name: dart_api_generator_tests
-version: 0.0.3
+name: dart_api_client_examples
+version: 0.0.4
 authors:
 - Gerwin Sturm <scarygami@gmail.com>
-- ' Adam Singer <financeCoding@gmail.com>'
+- Adam Singer <financeCoding@gmail.com>
 description: Various tests and demos for automatically generated API client libraries
 homepage: https://github.com/dart-gde/discovery_api_dart_client_generator
+environment:
+  sdk: '>=0.7.6'
 dependencies:
   browser: any
   crypto: any
-  google_drive_v2_api: any
-  google_plus_v1_api: any
-  google_urlshortener_v1_api: any
+  google_drive_v2_api: '>=0.4.0'
+  google_plus_v1_api: '>=0.4.0'
+  google_urlshortener_v1_api: '>=0.4.0'
