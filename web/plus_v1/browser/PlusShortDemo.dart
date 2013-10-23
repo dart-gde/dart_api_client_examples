@@ -1,6 +1,7 @@
 import "dart:html";
 import "package:google_plus_v1_api/plus_v1_api_browser.dart" as pluslib;
 import "package:google_urlshortener_v1_api/urlshortener_v1_api_browser.dart" as urllib;
+import "package:google_urlshortener_v1_api/urlshortener_v1_api_client.dart" as urllib_client;
 
 void main() {
   // use your own API Key from the API Console here
@@ -8,23 +9,23 @@ void main() {
   plus.key = "AIzaSyDxnNu9Dm3eGxnDD72EF02IjRvR5v_eMPc";
   var shortener = new urllib.Urlshortener();
   shortener.key = "AIzaSyDxnNu9Dm3eGxnDD72EF02IjRvR5v_eMPc";
-  var container = query("#text");
-  
+  var container = querySelector("#text");
+
   plus.activities.list("+FoldedSoft", "public", maxResults: 5)
     .then((data) {
       data.items.forEach((item) {
-        shortener.url.insert(new urllib.Url.fromJson({"longUrl": item.url}))
+        shortener.url.insert(new urllib_client.Url.fromJson({"longUrl": item.url}))
           .then((url) {
             container.appendHtml("<a href=\"${url.id}\">${url.id}</a> ${item.published} - ${item.title}<br>");
           })
           .catchError((e) {
             container.appendHtml("$e<br>");
-            return true; 
+            return true;
           });
       });
     })
     .catchError((e) {
       container.appendHtml("$e<br>");
-      return true; 
+      return true;
     });
 }
