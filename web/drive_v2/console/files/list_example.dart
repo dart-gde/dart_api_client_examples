@@ -1,4 +1,4 @@
-// Run as 
+// Run as
 // dart web/drive_v2/console/files/list_example.dart
 
 // See https://developers.google.com/drive/search-parameters for more information on queries.
@@ -8,7 +8,7 @@ import "dart:async";
 import "dart:json" as JSON;
 import "package:google_oauth2_client/google_oauth2_console.dart";
 import "package:google_drive_v2_api/drive_v2_api_console.dart" as drivelib;
-import "package:http/http.dart" as http;
+import "package:google_drive_v2_api/drive_v2_api_client.dart" as client;
 
 void run(Map client_secrets) {
   String identifier = client_secrets["client_id"];
@@ -18,8 +18,8 @@ void run(Map client_secrets) {
   var drive = new drivelib.Drive(auth);
   drive.makeAuthRequests = true;
   String query = "mimeType = 'application/vnd.google-apps.document'";
-  drive.files.list(maxResults:10,q:query).then((drivelib.FileList fileList){
-    fileList.items.forEach((drivelib.File file){
+  drive.files.list(maxResults:10,q:query).then((client.FileList fileList){
+    fileList.items.forEach((client.File file){
       print("${file.title}: ${file.id}");
     });
   });
@@ -37,5 +37,5 @@ void main() {
       });
     }
   });
- 
+
 }

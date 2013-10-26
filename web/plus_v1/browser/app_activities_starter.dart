@@ -1,6 +1,7 @@
 import "dart:html";
-import "dart:json" as JSON;
+import "dart:convert";
 import "package:google_plus_v1_api/plus_v1_api_browser.dart" as pluslib;
+import "package:google_plus_v1_api/plus_v1_api_client.dart" as pluslib_client;
 import "package:google_oauth2_client/google_oauth2_browser.dart" as oauth;
 
 oauth.GoogleOAuth2 auth;
@@ -108,7 +109,7 @@ final Map sampleActivities = {
 };
 
 void debugLog(String message) {
-  query("#debug-panel").text = "$message\n${query("#debug-panel").text}";
+  querySelector("#debug-panel").text = "$message\n${querySelector("#debug-panel").text}";
 }
 
 String formatJson(String json) {
@@ -124,15 +125,15 @@ void toggleInterface(token) {
   } else {
     debugLog("Auth Success ${token.toString()}");
   }
-  query("#panel-sign-in").style.display = (token == null) ? "block" : "none";
-  query("#panel-sign-out").style.display = (token == null) ? "none" : "block";
-  query("#panel-communicate-moments").style.display = (token == null) ? "none" : "block";;
+  querySelector("#panel-sign-in").style.display = (token == null) ? "block" : "none";
+  querySelector("#panel-sign-out").style.display = (token == null) ? "none" : "block";
+  querySelector("#panel-communicate-moments").style.display = (token == null) ? "none" : "block";;
 }
 
 void createButtons() {
-  final mainDiv = query("#sample-moment-buttons");
+  final mainDiv = querySelector("#sample-moment-buttons");
   sampleActivities.forEach((name, body) {
-    var buttonHtml = "<button class='write-sample' data-moment='${JSON.stringify(body)}'>$name</button>";
+    var buttonHtml = "<button class='write-sample' data-moment='${JSON.encode(body)}'>$name</button>";
     mainDiv.appendHtml(buttonHtml);
   });
   debugLog("Loaded sample activities");
@@ -140,7 +141,7 @@ void createButtons() {
 
 void writeMoment(String momentString) {
   var json;
-  
+
   try {
     json = JSON.parse(momentString);
   } on FormatException {
@@ -148,10 +149,10 @@ void writeMoment(String momentString) {
     return;
   }
   debugLog("Trying to write Moment:\n${formatJson(momentString)}");
-  var moment = new pluslib.Moment.fromJson(json);
+  var moment = new pluslib_client.Moment.fromJson(json);
   plus.makeAuthRequests = true;
   plus.moments.insert(moment, "me", "vault", debug: true)
-    .then((pluslib.Moment response) {
+    .then((pluslib_client.Moment response) {
       debugLog("Moment written successfully:\n${formatJson(response.toString())}");
     })
     .catchError((e) {
@@ -162,35 +163,35 @@ void writeMoment(String momentString) {
 
 void main() {
   createButtons();
-  
+
   auth = new oauth.GoogleOAuth2(CLIENT_ID, SCOPES, request_visible_actions: ACTIONS, tokenLoaded: toggleInterface);
-  
+
   plus = new pluslib.Plus(auth);
 
-  query("#sign-in").onClick.listen((_) {
+  querySelector("#sign-in").onClick.listen((_) {
     debugLog("Attempting to log you in.");
     auth.login();
   });
-  
-  query("#sign-out").onClick.listen((_) {
+
+  querySelector("#sign-out").onClick.listen((_) {
     debugLog("Signing you out.");
     auth.logout();
     toggleInterface(null);
   });
-  
-  query("#clear-debug").onClick.listen((_) => query("#debug-panel").text = "");
-  
-  query("#get-me").onClick.listen((_) {
+
+  querySelector("#clear-debug").onClick.listen((_) => querySelector("#debug-panel").text = "");
+
+  querySelector("#get-me").onClick.listen((_) {
     debugLog("Attempting to get your profile");
     plus.makeAuthRequests = true;
     plus.people.get("me", optParams: {"fields": "displayName,id,image,url"})
-      .then((pluslib.Person p) => debugLog("Got your profile:\n${formatJson(p.toString())}"))
+      .then((pluslib_client.Person p) => debugLog("Got your profile:\n${formatJson(p.toString())}"))
       .catchError((error) => debugLog("Error getting profile: $error"));
   });
-  
-  queryAll(".write-sample").forEach((button) {
+
+  querySelectorAll(".write-sample").forEach((button) {
     button.onClick.listen((_) => writeMoment(button.dataset["moment"]));
   });
-  
-  query("#custom-json-submit").onClick.listen((_) => writeMoment(query("#custom-json").text));
+
+  querySelector("#custom-json-submit").onClick.listen((_) => writeMoment(querySelector("#custom-json").text));
 }
