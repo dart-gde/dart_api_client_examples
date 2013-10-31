@@ -7,7 +7,19 @@
  
   <body>
     <button id="login" disabled="true">login</button>
-    <p id="output"></p>
+    <div>File ID: <input style="width:40em;" type="text" id="fileId" placeholder="i.e. https://docs.google.com/document/d/<fileId>/edit" disabled="true"></input></div>
+    <button id="insert" disabled="true">insert</button>
+    <button id="get" disabled="true">get</button>
+    <button id="copy" disabled="true">copy</button>
+    <button id="list" disabled="true">list</button>
+    <button id="patch" disabled="true">patch</button>
+    <button id="touch" disabled="true">touch</button>
+    <button id="trash" disabled="true">trash</button>
+    <button id="untrash" disabled="true">untrash</button>
+    <button id="update" disabled="true">update</button>
+    <button id="delete" disabled="true">delete</button>
+
+    <div id="output"></div>
     <script type="application/dart" src="index.dart"></script>
     <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
     <script src="packages/browser/dart.js"></script>
