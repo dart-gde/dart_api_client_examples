@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import "package:google_oauth2_client/google_oauth2_browser.dart" as oauth;
 import "package:google_drive_v2_api/drive_v2_api_browser.dart" as drivelib;
+import "package:google_drive_v2_api/drive_v2_api_client.dart" as drivelib_client;
 import 'src/files.dart';
 
 final DivElement output = querySelector("#output");
@@ -24,21 +25,21 @@ final Map actions = {
 };
 
 main() {
-  
+
   HttpRequest.getString("client_secret.json").then((secretsFile){
     Map secrets = JSON.decode(secretsFile);
     window.localStorage["client_id"] = secrets["web"]["client_id"];
     loginBtn.disabled = false;
   });
-  
+
   actions.forEach((k,v){
     querySelector("#$k").onClick.listen(v);
   });
-  
+
   fileId.onInput.listen(_toggleBtns);
-  
+
   fileId.onChange.listen(_toggleBtns);
-  
+
   loginBtn.onClick.listen((e){
     _getToken().then((token){
       loginBtn.disabled = true;
@@ -47,7 +48,7 @@ main() {
       list.disabled = false;
     });
   });
-  
+
   insert.onClick.listen(_insert);
   list.onClick.listen(_list);
 }
@@ -88,7 +89,7 @@ Future <oauth.Token> _getToken(){
       auth.login().then((oauth.Token token) {
         window.localStorage["token"] = token.toJson();
         completer.complete(token);
-      });  
+      });
     }
   }
   return completer.future;
@@ -149,7 +150,7 @@ void _list(e){
     list_files(token, "mimeType = 'application/vnd.google-apps.document' AND trashed = false").then((fileList){
       output.innerHtml = '';
       fileId.value = '';
-      fileList.items.forEach((drivelib.File file){
+      fileList.items.forEach((drivelib_client.File file){
         output.appendHtml("<div><a target='_blank' href='${file.alternateLink}'>${file.title}</a>: ${file.id}</div>");
       });
       _toggleBtns(e);
