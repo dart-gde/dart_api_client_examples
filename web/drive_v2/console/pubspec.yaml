@@ -1,0 +1,6 @@
+name: drive_v2
+description: A sample command-line application
+dependencies:
+  google_drive_v2_api: any
+  google_oauth2_client: any
+  hop: any
