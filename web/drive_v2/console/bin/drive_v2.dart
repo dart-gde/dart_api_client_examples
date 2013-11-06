@@ -2,7 +2,7 @@ import "dart:async";
 import "dart:io";
 import "package:google_oauth2_client/google_oauth2_console.dart" as oauth;
 import "package:google_drive_v2_api/drive_v2_api_console.dart" as drivelib;
-import "package:google_drive_v2_api/drive_v2_api_client.dart" show File,FileList;
+import "package:google_drive_v2_api/drive_v2_api_client.dart" as driveclient show File,FileList;
 import "package:crypto/crypto.dart" show CryptoUtils;
 
 const _IDENTIFIER =
@@ -48,7 +48,7 @@ void main(List args) {
       });
     } else if (['-l','-list'].contains(option)){
       list_files(drive, param).then((fileList){
-        fileList.items.forEach((File file){
+        fileList.items.forEach((driveclient.File file){
           print("${file.title}: ${file.id}");
         });
       });
@@ -78,32 +78,32 @@ Operate on Google Drive Files:
   """;
 }
 
-Future <File> get_file(drivelib.Drive drive, String fileId) {
+Future <driveclient.File> get_file(drivelib.Drive drive, String fileId) {
   var completer = new Completer();
-  drive.files.get(fileId).then((File rtrvdFile){
+  drive.files.get(fileId).then((driveclient.File rtrvdFile){
     completer.complete(rtrvdFile);
   });
   return completer.future;
 }
 
 
-Future <File> insert_file(drivelib.Drive drive, String fileName) {
+Future <driveclient.File> insert_file(drivelib.Drive drive, String fileName) {
   var completer = new Completer();
   var body = {
               'title': fileName,
               'mimeType': "application/vnd.google-apps.document"
   };
-  File file = new File.fromJson(body);
-  drive.files.insert(file).then((File newFile){
+  driveclient.File file = new driveclient.File.fromJson(body);
+  drive.files.insert(file).then((driveclient.File newFile){
     completer.complete(newFile);
   });
   return completer.future;
 }
 
-Future <File> copy_file(drivelib.Drive drive, String fileId) {
+Future <driveclient.File> copy_file(drivelib.Drive drive, String fileId) {
   var completer = new Completer();
-  drive.files.get(fileId).then((File rtrvdFile){
-    drive.files.copy(rtrvdFile, fileId).then((File copiedFile){
+  drive.files.get(fileId).then((driveclient.File rtrvdFile){
+    drive.files.copy(rtrvdFile, fileId).then((driveclient.File copiedFile){
       completer.complete(copiedFile);
     });
   });
@@ -112,7 +112,7 @@ Future <File> copy_file(drivelib.Drive drive, String fileId) {
 
 Future delete_file(drivelib.Drive drive, String fileId) {
   var completer = new Completer();
-  drive.files.get(fileId).then((File rtrvdFile){
+  drive.files.get(fileId).then((driveclient.File rtrvdFile){
     print("Ooooo be careful.  Can't be undone. ARE YOU SURE?  Type filename to delete forever or 'quit'");
     print("Filename: ${rtrvdFile.title}");
     var answer = stdin.readLineSync();
@@ -126,57 +126,57 @@ Future delete_file(drivelib.Drive drive, String fileId) {
   return completer.future;
 }
 
-Future <File> patch_file(drivelib.Drive drive, String fileId) {
+Future <driveclient.File> patch_file(drivelib.Drive drive, String fileId) {
   var completer = new Completer();
   var body = {
               'title': 'new file name',
               'mimeType': "application/vnd.google-apps.document"
   };
-  File file = new File.fromJson(body);
-  drive.files.patch(file, fileId).then((File patchedFile){
+  driveclient.File file = new driveclient.File.fromJson(body);
+  drive.files.patch(file, fileId).then((driveclient.File patchedFile){
     completer.complete(patchedFile);
   });
   return completer.future;
 }
 
-Future <FileList> list_files(drivelib.Drive drive, String query){
+Future <driveclient.FileList> list_files(drivelib.Drive drive, String query){
   var completer = new Completer();
-  drive.files.list(maxResults:10,q:query).then((FileList fileList){
+  drive.files.list(maxResults:10,q:query).then((driveclient.FileList fileList){
     completer.complete(fileList);
   });
   return completer.future;
 }
 
-Future <File>  touch_file(drivelib.Drive drive, String fileId) {
+Future <driveclient.File>  touch_file(drivelib.Drive drive, String fileId) {
   var completer = new Completer();
-  drive.files.touch(fileId).then((File touchedFile){
+  drive.files.touch(fileId).then((driveclient.File touchedFile){
     completer.complete(touchedFile);
   });
   return completer.future;
 }
 
-Future <File> trash_file(drivelib.Drive drive, String fileId) {
+Future <driveclient.File> trash_file(drivelib.Drive drive, String fileId) {
   var completer = new Completer();
-  drive.files.trash(fileId).then((File trashedFile){
+  drive.files.trash(fileId).then((driveclient.File trashedFile){
     completer.complete(trashedFile);
   });
   
   return completer.future;
 }
 
-Future <File> untrash_file(drivelib.Drive drive, String fileId) {
+Future <driveclient.File> untrash_file(drivelib.Drive drive, String fileId) {
   var completer = new Completer();
-  drive.files.untrash(fileId).then((File untrashedFile){
+  drive.files.untrash(fileId).then((driveclient.File untrashedFile){
     completer.complete(untrashedFile);
   });
   return completer.future;
 }
 
-Future <File> update_file(drivelib.Drive drive, String fileId, String content){
+Future <driveclient.File> update_file(drivelib.Drive drive, String fileId, String content){
   String base64content = CryptoUtils.bytesToBase64(content.codeUnits);
   var completer = new Completer();
-  drive.files.get(fileId).then((File rtrvdFile){
-    drive.files.update(rtrvdFile, fileId, content:base64content).then((File updatedFile){
+  drive.files.get(fileId).then((driveclient.File rtrvdFile){
+    drive.files.update(rtrvdFile, fileId, content:base64content).then((driveclient.File updatedFile){
       completer.complete(updatedFile);
     });
   });
